@@ -1,5 +1,8 @@
 // DEPENDENCIES
 const express = require('express')
+// DEPENDENCIES
+const methodOverride = require('method-override')
+
 
 // CONFIGURATION
 require('dotenv').config()
@@ -8,6 +11,9 @@ const app = express()
 
 // MIDDLEWARE
 // MIDDLEWARE
+// MIDDLEWARE
+app.use(methodOverride('_method'))
+
 app.use(express.urlencoded({extended: true}))
 app.use(express.static('public'))
 app.set('views', __dirname + '/views')
