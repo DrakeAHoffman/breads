@@ -2,12 +2,21 @@
 const express = require('express')
 // DEPENDENCIES
 const methodOverride = require('method-override')
+const mongoose = require('mongoose')
+
 
 
 // CONFIGURATION
 require('dotenv').config()
 const PORT = process.env.PORT
 const app = express()
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => { console.log('connected to mongo: ', process.env.MONGO_URI) })
+
+
+
+
 
 // MIDDLEWARE
 // MIDDLEWARE
@@ -30,6 +39,15 @@ app.get('/', (req, res) => {
   const breadsController = require('./controllers/breads_controller.js')
   app.use('/breads', breadsController)
 
+ 
+
+// bakers 
+const bakersController = require('./controllers/bakers_controller.js')
+app.use('/bakers', bakersController)
+
+
+
+
   // 404 Page
 app.get('*', (req, res) => {
   res.send('404')
@@ -40,3 +58,5 @@ app.get('*', (req, res) => {
 app.listen(PORT, () => {
   console.log('listening on port', PORT);
 })
+
+module.exports = app
